@@ -15,3 +15,12 @@ For example, the following tree has 5 unival subtrees:
   / \
  1   1
  """
+
+ #O(n^2)
+ def is_unival(root):
+    return unival_helper(root, root.value)
+
+def unival_helper(root, value):
+   if root is None:
+      return True
+   if root.value 
