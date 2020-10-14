@@ -1,42 +1,13 @@
 """
 This problem was asked by Google.
 
-The area of a circle is defined as πr^2. Estimate π to 3 decimal places using a Monte Carlo method.
+Given an array of integers and a number k, where 1 <= k <= length of the array, compute the maximum values of each subarray of length k.
 
-Hint: The basic equation of a circle is x2 + y2 = r2.
+For example, given array = [10, 5, 2, 7, 8, 7] and k = 3, we should get: [10, 7, 8, 8], since:
+
+10 = max(10, 5, 2)
+7 = max(5, 2, 7)
+8 = max(2, 7, 8)
+8 = max(7, 8, 7)
+Do this in O(n) time and O(k) space. You can modify the input array in-place and you do not need to store the results. You can simply print them out as you compute them.
 """
-import random 
-  
-INTERVAL= 1000
-  
-circle_points= 0
-square_points= 0
-  
-# Total Random numbers generated= possible x 
-# values* possible y values 
-for i in range(INTERVAL**2): 
-  
-    # Randomly generated x and y values from a 
-    # uniform distribution 
-    # Rannge of x and y values is -1 to 1 
-    rand_x= random.uniform(-1, 1) 
-    rand_y= random.uniform(-1, 1) 
-  
-    # Distance between (x, y) from the origin 
-    origin_dist= rand_x**2 + rand_y**2
-  
-    # Checking if (x, y) lies inside the circle 
-    if origin_dist<= 1: 
-        circle_points+= 1
-  
-    square_points+= 1
-  
-    # Estimating value of pi, 
-    # pi= 4*(no. of points generated inside the  
-    # circle)/ (no. of points generated inside the square) 
-    pi = round(4* circle_points/ square_points , 3)
-  
-##    print(rand_x, rand_y, circle_points, square_points, "-", pi) 
-##    print("\n") 
-  
-print("Final Estimation of Pi=", pi)
