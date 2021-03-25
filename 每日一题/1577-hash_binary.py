@@ -1,67 +1,28 @@
 class Solution:
-    def numTriplets(self, nums1: List[int], nums2: List[int]) -> int:    
-        nums1.sort()
-        nums2.sort()
-        
-        def lowerbound(target, left, right, nums):
-            while left < right:
-                mid = left + (right - left) // 2
-
-                if nums[mid] == target:
-                    right = mid
-                elif nums[mid] < target:
-                    left = mid + 1
-                else:
-                    right = mid
-
-            return left
-
-        def higherbound(target, left, right, nums):
-            while left < right:
-                mid = left + (right - left) // 2
-                
-                if nums[mid] == target:
-                    left = mid + 1
-                elif nums[mid] < target:
-                    left = mid + 1
-                else:
-                    right = mid
-
-            return left
-
-
-        def helper(n, nums, memo):
-            if n in memo:
-                return memo[n]
-
-            result = 0
-
-            for i in range(len(nums)):
-                if n % nums[i] != 0:
-                    continue
-
-                target = n // nums[i]
-
-                # find total number of target in nums[i+1:]
-                lower = lowerbound(target, i+1, len(nums), nums)
-                higher = higherbound(target, i+1, len(nums), nums)
-                
-                result += (higher - lower)
-            
-            memo[n] = result
-            return result
-
-        result = 0
-        memo1 = {}
+    def numTriplets(self, nums1: List[int], nums2: List[int]) -> int:
+        cnt1 = collections.defaultdict(int)
+        cnt2 = collections.defaultdict(int)
         for n in nums1:
-            result += helper(n*n, nums2, memo1)
-
-        memo2 = {}
+            cnt1[n] += 1
         for n in nums2:
-            result += helper(n*n, nums1, memo2)
+            cnt2[n] += 1
 
-        return result
+        def triplets(dict_a, dict_b):
+            ans = 0
+            for n1, value in dict_a.items():
+                k = dict_b.get(n1, 0)
+                tmp = k * (k - 1) // 2
 
+                sq = n1 * n1
+                
+                for n2 in dict_b:
+                    if n2 < n1 and sq % n2 == 0:
+                        tmp += dict_b.get(n2, 0) * dict_b.get(sq // n2, 0)
+                ans += tmp * value
+            return ans
+        
+        return triplets(cnt1, cnt2) + triplets(cnt2, cnt1)
+        
         """
         def count(list_a, list_b):
             table = collections.defaultdict(int)
