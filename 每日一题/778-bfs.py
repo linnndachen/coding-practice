@@ -1,3 +1,10 @@
+# for this question, we need to use heap instead of queue because we can't just
+# pop whatever that's on the left of the queue (meaning, either of the children)
+# we need to pop/go to with the smallest possible child node. In this sense
+# this is similar to dijkstra. However, this is not dijkstra because, we don't need
+# to add all values/weights together. We are looking for the smallest-largest weight.
+# for example, answer 16 is not the sum of all the nodes but the smallest node that
+# allows us to have a path regardless of the "weight"
 import heapq
 class Solution:
     # bfs + heapq
