@@ -26,5 +26,6 @@ class Solution:
                     if nb not in seen:
                         queue.append((steps+1, nb))
                         seen.add(nb)
+                # prevent TLE
                 same_val[arr[pos]] = None
         return -1
