@@ -21,7 +21,7 @@ class Solution:
                 return False
         return True
 
-class Solution:
+class SolutionII:
     def totalNQueens(self, n: int) -> int:
         diag1, diag2, past_cols = set(), set(), set()
 
