@@ -1,4 +1,5 @@
 class SnapshotArray:
+    # to advoid making a copy every time, we can only record the change
     def __init__(self, n):
         self.data = [[[-1, 0]] for _ in range(n)]
         self.snap_id = 0
@@ -16,6 +17,10 @@ class SnapshotArray:
         print(i)
         return self.data[index][i][1]
     """
+    # for self.data, if I use [] instead of {}, it will TLE
+    # the drawback of this design is that I need to make a copy of self.data every time I take
+    # a snap. This could be unnecessary since only minor change might happed or exactly same copy
+
     def __init__(self, length: int):
         self.data = {}
         self.snap_id = -1
