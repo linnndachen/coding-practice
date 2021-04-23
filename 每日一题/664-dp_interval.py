@@ -18,12 +18,12 @@ class Solution:
         if (left, right) in self.memo:
             return self.memo[(left, right)]
 
-        # add the cost of the current one
+        # worst case
         res = self.dfs(s, left+1, right) + 1
 
         for k in range(left+1, right+1):
             if s[k] == s[left]:
-                # then we can skip the cost of k
+                # then we can skip the cost of k - optimizing the wrost case
                 res = min(res, self.dfs(s, left, k-1) + self.dfs(s, k+1, right))
 
         self.memo[(left, right)] = res

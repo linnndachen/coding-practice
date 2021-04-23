@@ -1,4 +1,5 @@
 class Solution:
+    """
     def minimumMoves(self, arr: List[int]) -> int:
         N = len(arr)
         dp = [[float('inf')]*N for _ in range(N)]
@@ -22,26 +23,32 @@ class Solution:
                     dp[left][right] = dp[left+1][right-1]
                 for mid in range(left, right):
                     dp[left][right] = min(dp[left][right], dp[left][mid]+dp[mid+1][right])
-        return dp[0][N-1]
 
-    """
+        return dp[0][N-1]
+        """
+
+
     def minimumMoves(self, arr: List[int]) -> int:
         self.memo = {}
 
         return self.dfs(arr, 0, len(arr)-1)
 
+
     def dfs(self, arr, left, right):
         if left > right:
             return 0
-        # first n to remove is the last one
-        # thus, the range because [0: -2]
-        res = self.dfs(arr, left, right-1) + 1
-        if arr[right] == arr[right-1]:
-            res = min(res, self.dfs(arr,left, right-2) + 1)
 
-        # scan the range to find the palidrome of "right"
-        for k in range(left, right-1):
-            if arr[right] == arr[k]:
-                res = min(res, self.dfs(arr,left, k-1) + self.dfs(arr,k+1, right-1))
+        if (left, right) in self.memo:
+            return self.memo[(left, right)]
+
+        # wrost case - each individial n needs + 1
+        res = self.dfs(arr, left+1, right) + 1
+
+        for k in range(left+1, right+1):
+            if arr[left] == arr[k]:
+                # we have a max(1, left) because we should have at least 1 palidrome
+                res = min(res, max(1, self.dfs(arr,left+1, k-1)) + \
+                                   self.dfs(arr,k+1, right))
+
+        self.memo[(left, right)] = res
         return res
-    """
