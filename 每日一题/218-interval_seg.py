@@ -33,9 +33,12 @@ class Solution:
         # to be a skyline point either:
         # 1. entering event with highest height
         # 2. leaving event with highest height
-        # to handle edge case
-        # sort the entering event by increasing order of height
-        # sort the leaving event by decreasing order of height
+        # Edge cases:
+        #  1) right next to each other boundary: lower height right next to the higer one) 
+        #  2) completly overlap (same x and y but diffeent heights)
+        # Solution to Edge cases
+        #  - sort the entering event by increasing order of height instead of entering time
+        #  - sort the leaving event by decreasing order of height
         """
         # [[start, h, 1], [end, h, -1]....]
         events = [[x, b[2], enter] for b in buildings for x, enter in zip(b[:2], [1, -1])]
@@ -56,7 +59,9 @@ class Solution:
                 heights.discard(h)
                 if not heights:
                     ans.append([x, 0])
+                # if the removing point was the highest point
                 elif h > heights[-1]:
+                    # the second highest point will become part of the skyline
                     ans.append([x, heights[-1]])
         return ans
 
