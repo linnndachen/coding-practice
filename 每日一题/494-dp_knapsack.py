@@ -43,19 +43,18 @@ class Solution:
     # memo using dictionary
     def findTargetSumWays(self, nums: List[int], S: int) -> int:
         self.memo = {}
-        return self.dfs(0, nums, S)
+        return self.dfs(0, nums, 0, S)
 
-    def dfs(self, cur_sum, nums, target):
-        key = (cur_sum, tuple(nums))
-        if key in self.memo: 
-            return self.memo[key]
+    def dfs(self, cur_sum, nums, idx, target):
+        if (idx, cur_sum) in self.memo: 
+            return self.memo[(idx, cur_sum)]
 
-        if not nums: 
-            return 1 if cur_sum == target else 0            
+        if idx == len(nums):
+            return 1 if cur_sum == target else 0
 
-        res = self.dfs(cur_sum - nums[0], nums[1:], target) + \
-              self.dfs(cur_sum + nums[0], nums[1:], target)
+        res = self.dfs(cur_sum - nums[idx], nums, idx+1, target) + \
+              self.dfs(cur_sum + nums[idx], nums, idx+1, target)
 
-        self.memo[key] = res
+        self.memo[(idx, cur_sum)] = res
 
         return res
