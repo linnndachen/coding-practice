@@ -7,7 +7,7 @@ class Solution:
             if not stack or val < A[stack[-1]]:
                 stack.append(i)      
         maxWidth = 0
-
+        # from the furthest possible distance
         for i in range(len(A)-1, -1, -1):
             val = A[i]
             # if val > than the smallest num in the stack
