@@ -1,22 +1,23 @@
 class Solution:
     def maxResult(self, nums: List[int], k: int) -> int:
-        score = [0] * len(nums)
-        score[0] = nums[0]
-        # enque the index
-        queue = collections.deque()
-        queue.append(0)
+        dp = [0] * len(nums)
+        # the maximum sums so far
+        dp[0] = nums[0]
+        # stores all the valid indexs before i
+        # valid = within k, increasing value
+        # the last idx stores the maximum sum so far
+        queue = collections.deque([0])
 
         for end in range(1, len(nums)):
             # pop the old idx (out of range)
             while queue and queue[0] < end - k:
                 queue.popleft()
-            
-            score[end] = score[queue[0]] + nums[end]
+            dp[end] = dp[queue[0]] + nums[end]
 
             # pop the smaller value
-            while queue and score[end] >= score[queue[-1]]:
+            while queue and dp[end] >= dp[queue[-1]]:
                 queue.pop()
 
             queue.append(end)
 
-        return score[-1]
+        return dp[-1]
