@@ -8,7 +8,7 @@ class DisJointSet(object):
     def union(self, x, y):
         set1 = self.find(x)
         set2 = self.find(y)
-        if set1 != set2:                
+        if set1 != set2:
             if self.forest[set1] < self.forest[set2]:
                     self.parents[set1] = set2
                     self.forest[set2] += self.forest[set1]
