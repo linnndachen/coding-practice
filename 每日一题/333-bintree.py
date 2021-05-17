@@ -4,30 +4,23 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-class subtree():
-    def __init__(self, largest, n, mini, maxi):
-        self.largest = largest   # largest bst
-        self.count = n           # number of nodes in this subtree
-        self.mini = mini      # min val in the substree
-        self.maxi = maxi     # max val in teh subtree
-
 class Solution:
     def largestBSTSubtree(self, root: TreeNode) -> int:
-        res = self.dfs(root)
-        return res.largest
+        self.res = 0
 
-    def dfs(self, node):
-        if not node:
-            return subtree(0, 0, float('inf'), float('-inf'))
+        def _dfs(node):
+            if not node:
+                return 0, float('inf'), float('-inf')
 
-        left = self.dfs(node.left)
-        right = self.dfs(node.right)
+            ln, lmin, lmax = _dfs(node.left)
+            rn, rmin, rmax = _dfs(node.right)
 
-        if node.val > left.maxi and node.val < right.mini:
-            n = left.count + right.count + 1
-        else:
             n = float('-inf')
+            if node.val > lmax and node.val < rmin:
+                n = ln + rn + 1
+                self.res = max(self.res, n)
 
-        largest = max(left.largest, right.largest, n)
+            return n, min(node.val, lmin), max(node.val, rmax)
 
-        return subtree(largest, n, min(left.mini, node.val), max(right.maxi, node.val))
+        _dfs(root)
+        return self.res
