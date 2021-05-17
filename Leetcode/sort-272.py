@@ -8,14 +8,16 @@ class Solution:
     def closestKValues(self, root: TreeNode, target: float, k: int) -> List[int]:
         def inorder(node):
             return inorder(node.left) + [node.val] + inorder(node.right) if node else []
+
         def partition(left, right, pivot_idx):
             pivot = dist(pivot_idx)
+
             # move to the end
             nums[right], nums[pivot_idx] = nums[pivot_idx], nums[right]
             store_idx = left
 
             for i in range(left, right):
-                # move smaller values to the left
+                # move smaller difference values to the left
                 if dist(i) < pivot:
                     nums[i], nums[store_idx] = nums[store_idx], nums[i]
                     store_idx += 1
@@ -35,12 +37,12 @@ class Solution:
                 return
 
             if true_idx < k:
-                # go left
+                # increase the range
                 quickselect(true_idx, right)
             else:
-                # go right
+                # squeeze the range
                 quickselect(left, true_idx)
-    
+
         nums = inorder(root)
         dist = lambda idx: abs(nums[idx] - target)
         quickselect(0, len(nums)-1)
