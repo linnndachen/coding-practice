@@ -34,3 +34,28 @@ class Solution:
             return root
 
         return helper(0, len(inorder)-1)
+
+    # optimized
+    def buildTree(self, inorder: List[int], postorder: List[int]) -> TreeNode:
+        """       
+        using inorder to construct the tree while using postorder to find the root.
+        Property of inorder is that the root node will always be in the middle
+        """
+
+        def helper(left, right):
+            if left > right:
+                return None
+
+            val = postorder.pop()
+            root = TreeNode(val)
+
+            idx = inorder_map[val]
+            
+            root.right = helper(idx+1, right)
+            root.left = helper(left, idx-1)
+
+            return root
+
+        inorder_map = {val: idx for idx, val in enumerate(inorder)}
+        
+        return helper(0, len(inorder)-1)
