@@ -9,7 +9,7 @@ class Solution:
 
         while l < r:
             mid = (l + r + 1) // 2
-            
+
             cur_x, pieces = 0, 0
 
             for x in sweetness:
@@ -18,10 +18,10 @@ class Solution:
                 if cur_x >= mid:
                     cur_x = 0
                     pieces += 1
-                    
+
                     if pieces > K + 1:
                         break
-            
+
             if pieces >= K + 1:
                 l = mid
             else:
