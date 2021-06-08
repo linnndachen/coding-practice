@@ -1,4 +1,35 @@
+import heapq
 class Solution:
+    def minimumEffortPath(self, heights: List[List[int]]) -> int:
+        if not heights:
+            return 0
+
+        m, n = len(heights), len(heights[0])
+        pq = [(0, 0, 0)]
+        res = 0
+        visited = set()
+
+        directions = [[0, 1], [1, 0], [-1, 0], [0, -1]]
+        while pq:
+            d, x, y = heapq.heappop(pq)
+
+            res = max(res, d)
+            visited.add((x, y))
+
+            if (x, y) == (m-1, n-1):
+                return res
+
+            for dx, dy in directions:
+                i, j = dx+x, dy+y
+
+                if i < 0 or j < 0 or i >= m or j >= n or (i, j) in visited:
+                    continue
+
+                nd = abs(heights[i][j] - heights[x][y])
+                heapq.heappush(pq, (nd, i , j))
+
+        return res
+
     """
     # binary search
     def minimumEffortPath(self, heights: List[List[int]]) -> int:
