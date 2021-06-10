@@ -26,6 +26,8 @@ class Solution:
                         break
 
                 if (x, y) not in seen or [d+dist, path+di] < seen[(x, y)]:
+                    # flag: 注意string的处理！！这里如果直接 path = path + char
+                    # 那么会改变 path, 等下一个direction， pth已经被改变
                     seen[(x, y)] = [d+dist, path+di]
                     heapq.heappush(queue, (d+dist, path+di, x, y))
 
