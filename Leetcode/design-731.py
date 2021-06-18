@@ -12,7 +12,7 @@ class MyCalendarTwo:
         for time, freq in self.calendar:
             # iterate through the the calender
             bookings += freq
-            if bookings == 3:
+            if bookings == 2:
                 self.calendar.pop(bisect.bisect_left(self.calendar, (start, 1)))
                 self.calendar.pop(bisect.bisect_left(self.calendar, (end, -1)))
                 return False
