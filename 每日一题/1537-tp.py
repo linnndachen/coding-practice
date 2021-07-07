@@ -1,3 +1,4 @@
+from  typing import List
 class Solution:
     def maxSum(self, nums1: List[int], nums2: List[int]) -> int:
         p1, p2, len1, len2 = 0, 0, len(nums1), len(nums2)
