@@ -16,3 +16,19 @@ class Solution:
             cur.append(nums[i])
             self._dfs(i+1, cur, nums)
             cur.pop()
+
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        # bit
+        nums.sort()
+        n = len(nums)
+        res = []
+
+        for i in range( 2**n ):
+            cur = []
+            for j in range(n):
+                if (i & (1 << j)):
+                    cur.append(nums[j])
+
+            if (cur not in res):
+                res.append(cur)
+        return res
