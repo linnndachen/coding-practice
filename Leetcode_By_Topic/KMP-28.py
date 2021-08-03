@@ -54,8 +54,6 @@ class Solution:
             
             dp[i] = j+ (s[j] == s[i])
 
-        k = dp[n-1]
-
         return dp
 
     """
