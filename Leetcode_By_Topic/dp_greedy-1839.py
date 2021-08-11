@@ -4,7 +4,7 @@ class Solution:
         # dp[i][a] = max(dp[i-1][_], dp[i-1][a]) + 1
         # 在 i position上，以j字母结尾，最长的beautiful string
         # dp[i][j] = max(dp[i-1][j], dp[i-1][j-1]) + 1
-        
+        # O (5N)
         dp = [float('-inf') for _ in range(6)] # _,a,e,i,o,u
         dp_prev = [float('-inf') for _ in range(6)]
         Atoi_map = {"a":1, "e":2, "i":3, "o":4, "u":5}
@@ -27,7 +27,7 @@ class Solution:
 
     """
     def longestBeautifulSubstring(self, word: str) -> int:
-        # greedy
+        # greedy O(N)
         seen = set()
         left = 0
         res = 0
