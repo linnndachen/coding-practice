@@ -1,3 +1,6 @@
+from typing import List
+
+
 class Solution:
     def singleNumber(self, nums: List[int]) -> List[int]:
         product = 0
@@ -14,4 +17,4 @@ class Solution:
             if n & diff:
                 x ^= n
 
-        return [x, product^x]
+        return [x, product ^ x]
