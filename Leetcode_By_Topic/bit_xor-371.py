@@ -1,6 +1,14 @@
 class Solution:
     def getSum(self, a: int, b: int) -> int:
         # using XOR
+        """
+        reason why we use xor
+        - if both bit are 1&1, it will become 0 with a carry of 1
+        - if both bit are 0&0, it will stay 0
+        - if one bit 1 and the other 0, it will become 1
+        - this is exactly xor
+        
+        """
         x, y = abs(a), abs(b)
 
         if x < y:
@@ -28,7 +36,7 @@ class Solution:
 
         # works both as while loop and single value check 
         while (b & mask) > 0:
-
+            
             carry = ( a & b ) << 1
             a = (a ^ b) 
             b = carry
