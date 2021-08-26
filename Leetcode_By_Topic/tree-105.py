@@ -30,7 +30,6 @@ class Solution:
         preorder = deque(preorder)
 
         def _helper(left, right):
-            # important
             if left > right:
                 return None
 
@@ -45,3 +44,35 @@ class Solution:
             return root
 
         return _helper(0, len(inorder) - 1)
+
+
+    def buildTree2(self, preorder: List[int], inorder: List[int]) -> TreeNode:
+        if not preorder:
+            return None
+
+        stack = []
+        root = TreeNode(preorder[0])
+        stack.append(root)
+
+        prev_idx = 1
+        inor_idx = 0
+
+
+        while prev_idx < len(preorder):
+            node = TreeNode(preorder[prev_idx])
+            prev_idx += 1
+            prev = None
+
+            while stack and stack[-1].val == inorder[inor_idx]:
+                prev = stack.pop()
+                inor_idx += 1
+
+            if prev:
+                prev.right = node
+            else:
+                stack[-1].left = node
+
+
+            stack.append(node)
+
+        return root
