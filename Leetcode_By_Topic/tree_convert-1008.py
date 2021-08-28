@@ -7,6 +7,30 @@ class TreeNode:
         self.left = left
         self.right = right
 class Solution:
+    def __init__(self):
+        self.idx = 0
+
+    def bstFromPreorder(self, preorder: List[int]) -> Optional[TreeNode]:
+
+        def helper(left, right):
+            if self.idx == len(preorder):
+                return
+
+            val = preorder[self.idx]
+            if val > right or val < left:
+                return
+
+            self.idx += 1
+            root = TreeNode(val)
+
+            root.left = helper(left, val)
+            root.right = helper(val,  right)
+
+            return root
+        return helper(float("-inf"), float("inf"))
+
+
+class Solution:
     def bstFromPreorder(self, preorder: List[int]) -> Optional[TreeNode]:  
         root = TreeNode(preorder[0])
         stack = [root]
