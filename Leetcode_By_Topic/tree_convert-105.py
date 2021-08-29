@@ -8,22 +8,6 @@ class TreeNode:
         self.right = right
 
 class Solution:
-    """
-    def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
-        if not inorder or not preorder:
-            return None
-
-        val = preorder.pop(0)
-        node = TreeNode(val)
-        idx = inorder.index(val)
-
-        node.left = self.buildTree(preorder, inorder[:idx])
-        node.right = self.buildTree(preorder, inorder[idx+1:])
-
-        return root
-    """
-
-class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
         # flag: if not all unique vales, we cannot use hash
         memo = {val: i for i, val in enumerate(inorder)}

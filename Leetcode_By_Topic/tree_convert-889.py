@@ -1,23 +1,29 @@
-from typing import List
+from typing import List, Optional
 
 # Definition for a binary tree node.
+
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
         self.right = right
 
+
 class Solution:
-    
-    def constructFromPrePost(self, preorder: List[int], postorder: List[int]) -> TreeNode:
-        stack = [TreeNode(preorder[0])]
-        j = 0
-        for v in preorder[1:]:
-            node = TreeNode(v)
-            # 走到leaf, 那一边的分支已经建完的时候
-            while stack[-1].val == postorder[j]:
+
+    def constructFromPrePost(self, preorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
+        root = TreeNode(preorder[0])
+        stack = [root]
+        prev_idx, post_idx = 1, 0
+
+        while prev_idx < len(preorder):
+            node = TreeNode(preorder[prev_idx])
+            prev_idx += 1
+
+            while stack[-1].val == postorder[post_idx]:
                 stack.pop()
-                j += 1
+                post_idx += 1
             if not stack[-1].left:
                 stack[-1].left = node
             else:
@@ -25,7 +31,7 @@ class Solution:
 
             stack.append(node)
 
-        return stack[0]
+        return root
 
     """
     # more intuitive solution

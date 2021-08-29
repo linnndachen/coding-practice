@@ -1,11 +1,14 @@
 from typing import List
 
 # Definition for a binary tree node.
+
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
         self.right = right
+
 
 class Solution:
     """
@@ -40,18 +43,18 @@ class Solution:
 
         while pos_idx >= 0:
             node = TreeNode(postorder[pos_idx])
-            tmp = None
+            pos_idx -= 1
+            prev = None
 
             while stack and stack[-1].val == inorder[inor_idx]:
-                tmp = stack.pop()
+                prev = stack.pop()
                 inor_idx -= 1
 
-            if tmp:
-                tmp.left = node
+            if prev:
+                prev.left = node
             else:
                 stack[-1].right = node
 
             stack.append(node)
-            pos_idx -= 1
 
         return root
