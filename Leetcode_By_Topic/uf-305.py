@@ -96,4 +96,3 @@ class Solution:
                     
             res.append(uf.count)
         return res
-"""
