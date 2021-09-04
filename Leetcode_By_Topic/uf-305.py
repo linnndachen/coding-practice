@@ -93,6 +93,6 @@ class Solution:
                 dy = y + j
                 if 0 <= dx < m and 0 <= dy < n and (dx, dy) in uf.parents:
                     uf.union((x, y), (dx, dy))
-                    
+
             res.append(uf.count)
         return res
